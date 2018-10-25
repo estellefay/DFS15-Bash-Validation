@@ -24,14 +24,15 @@ menu()
 menu2()
 {
     echo -e "$rouge Choisissez les différente options$close"
-    select choixBox in "Afficher List" "Eteindre Box" "Alumer box" "List status" "Exit"
+    select choixBox in "Afficher List" "Eteindre Box" "Alumer box" "List status" "list alumé" "Exit"
         do
         case $choixBox in
             "Afficher List" ) displayList;; 
             "Eteindre Box" ) eteindreBox;;
             "Alumer box" ) alumeBox;;
             "List status" ) statusVM;;
-            "Exit" ) echo "good bye";;
+            "list alumé" ) alumerboxall;;
+            "Exit" ) echo "good bye"; break;;
 
 
             * ) choixBox; break;;
@@ -78,5 +79,14 @@ statusVM()
 
 }
 
+alumerboxall()
+{
+    echo -e "$rouge Les box alumé sont:$close"
+    vagrant global-status | grep "running"
+    menu2;
+}
 
+                #------------------#
+                #-----Program------#
+                #------------------#
 menu;

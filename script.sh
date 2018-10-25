@@ -51,7 +51,7 @@ confirm()
 no()
 {
     echo
-    echo "Nous allons recomencer la saisie"
+    echo "Nous allons recommencer la saisie"
     createVagrant;
 
 }
@@ -64,9 +64,9 @@ yes()
     sudo sed -i 's|config.vm.box = "base"|config.vm.box = "ubuntu/xenial64"|g' Vagrantfile
     sudo sed -i 's|# config.vm.network "private_network", ip: "192.168.33.10"|config.vm.network "private_network", ip: "192.168.33.10"|g' Vagrantfile
     sudo sed -i 's|# config.vm.synced_folder "../data", "/vagrant_data"|config.vm.synced_folder "./'$choixLocal'", "/var/www/'$choixSync'"|g' Vagrantfile
-    echo "youpi"
     mkdir $choixLocal
     vagrant up 
+    break;
 }
 
 verifVagrant()
@@ -74,6 +74,9 @@ verifVagrant()
     if [ vagrant > /dev/null ] 
     then
     echo -e "$rouge Vagrant is instaled$close"
+    else 
+    echo -e "$rouge Merci d'installer Vagrant $close"
+    break;
     fi
 }
 verifVirtualBox()
@@ -81,6 +84,9 @@ verifVirtualBox()
     if [ virtualbox > /dev/null ] 
     then
     echo -e "$rouge VirtualBox is instaled$close"
+        else 
+    echo -e "$rouge Merci d'installer VirtualBox $close"
+    break;
     fi
 }
 
