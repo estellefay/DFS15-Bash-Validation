@@ -4,31 +4,21 @@ choixSync=
 rouge="\033[1;31m"
 close="\033[0m"
 bleu="\033[0;34m"
-vagrant=
+
 
                                 #------------------#
                                 #-----Function-----#
                                 #------------------#
                                
 
-# choixBox()
-# {
-#     echo "Quel type de box voulez-vous"
-#       select choixBox in "ubuntu/xenial64" "bis ubuntu/xenial64" 
-# do
-# case $choixBox in
-# 	"ubuntu/xenial64" ) choixBox=ubuntu/xenial64; break;; 
-# 	"bis ubuntu/xenial64" ) choixBox=ubuntu/xenial64;  break;;
-#     * ) choixBox; break;;
-    
-# esac
-# done
-# }
+# vagrant > dev/null
+
+
 
 choixLocal()
 {
     echo
-    echo "quel est le nom du dossier local que vous voulez créer ? "
+    echo "----------Quel est le nom du dossier local que vous voulez créer ?---------- "
     read choixLocal
     echo -e "$bleu Le nom du dossier local est $rouge $choixLocal$close$close"
 }
@@ -36,7 +26,7 @@ choixLocal()
 choixSync()
 {
     echo
-    echo "quel est le nom du dossier sync que vous voulez créer ? "
+    echo "----------Quel est le nom du dossier sync que vous voulez créer ?----------"
     read choixSync
     echo -e "$bleu Le nom du dossier sync est $rouge $choixSync$close$close"
 }
@@ -47,9 +37,9 @@ confirm()
     sleep 1
     echo -"Récapitulatif"
     sleep 1
-    echo -e  "$bleu la box choisie est $rouge ubuntu/xenial64$close$close"
-    echo -e  "$bleu la nom de dossier local choisie est $rouge $choixLocal$close$close"
-    echo -e  "$bleu la nom de dossier sync choisie est $rouge $choixSync$close$close"
+    echo -e  "$bleu La box choisie est $rouge ubuntu/xenial64$close$close"
+    echo -e  "$bleu Le nom de dossier local choisie est $rouge $choixLocal$close$close"
+    echo -e  "$bleu Le nom de dossier sync choisie est $rouge $choixSync$close$close"
     read -p "Confirm (y/n)?" choice
     case "$choice" in 
     y|Y ) echo "yes"; yes;;
@@ -79,21 +69,34 @@ yes()
     vagrant up 
 }
 
-isinstall()
+verifVagrant()
 {
-    echo "coucou"
-    # vagrant version
-    # if [$vagrant != null] 
-    # then
-    echo "good"
-    # fi
+    if [ vagrant > /dev/null ] 
+    then
+    echo -e "$rouge Vagrant is instaled$close"
+    fi
+}
+verifVirtualBox()
+{
+    if [ virtualbox > /dev/null ] 
+    then
+    echo -e "$rouge VirtualBox is instaled$close"
+    fi
 }
 
+verif() 
+{
+    sleep 1
+    echo -e "$bleu Nous allons vérifier si VIrtualBox et Vagrant sont installe$close"
+    sleep 2
+    verifVagrant;
+    sleep 1
+    verifVirtualBox;
+}
 createVagrant()
 {
     echo -e "$rouge Bienvenue dans la creation d'une vagrant$close"
-    isinstall;
-    # choixBox;
+    verif;
     choixLocal;
     choixSync;
     confirm;
